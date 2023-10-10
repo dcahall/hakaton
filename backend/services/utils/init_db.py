@@ -16,17 +16,9 @@ def execute_sql(sql_file):
             sql = text(f.read())
         with e.connect() as con:
             result = con.execute(sql)
-        print(result)
     else:
         print("Таблица уже существуeт")
 
 
 if __name__ == '__main__':
-    print(DB_HOST)
-    print(DB_NAME)
-
     execute_sql('utils/init_db.sql')
-
-
-
-

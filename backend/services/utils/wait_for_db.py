@@ -26,7 +26,4 @@ def _wait():
 
 
 if __name__ == '__main__':
-    print(DB_HOST)
-    print(DB_NAME)
-
     _wait()
