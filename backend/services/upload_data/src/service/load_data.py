@@ -17,7 +17,6 @@ e = create_engine(
 
 def load_data_1(files_io: dict):
     """Загрузка информации о многоквартирных домах с их характеристиками"""
-    print(files_io.keys())
 
     filename = "1.xlsx"
 
@@ -126,10 +125,10 @@ def load_data(
 @log
 def _insert_data(df, table_name, key_id="id", type_id=str):
     """Вставка данных"""
-    print(f"load data to {table_name} -> ", end="")
+#    print(f"load data to {table_name} -> ", end="")
     df = _df_to_sql(df, key_id=key_id, table_name=table_name, type_id=type_id)
     df.to_sql(name=table_name, if_exists="append", con=e, index=False)
-    print(f"Success (Update: {len(df)} records)")
+#    print(f"Success (Update: {len(df)} records)")
 
 
 @log
@@ -139,9 +138,7 @@ def execute_sql(sql_file):
         sql = text(f.read())
 
     with e.connect() as con:
-        result = con.execute(sql)
-
-    print(result)
+        con.execute(sql)
 
 
 def load(files_io: dict):
@@ -155,7 +152,7 @@ def load(files_io: dict):
 @log
 def _load_model_etl():
     """Загрузка модули данных"""
-    print("Start update model")
+#    print("Start update model")
     sql_text = "SELECT * FROM public.for_model_prefinal"
     data = pd.read_sql_query(sql=text(sql_text), con=e.connect())
     data = data.fillna(value=-1)
@@ -164,7 +161,7 @@ def _load_model_etl():
     data.loc[data["col_754"] != -1, "col_754"] = 0
     data = data.loc[:, (data != data.iloc[0]).any()]
     data.to_sql(name="for_model", if_exists="replace", con=e, index=False)
-    print("Success update model")
+#    print("Success update model")
 
 
 def start(files_io: dict):
@@ -207,24 +204,9 @@ def start(files_io: dict):
     # Построение датасета
     job.meta["stage"] = "model_etl"
     job.save_meta()
-    print(sql_files.get("model_etl"))
     execute_sql(sql_files.get("model_etl"))  # +
     _load_model_etl()
 
     # Построение датасета
     job.meta["stage"] = "finish"
     job.save_meta()
-    # except:
-    #     job.meta['stage'] = 'finish'
-    #     job.save_meta()
-
-    # execute_sql(sql_files.get('create_model'))
-    #
-    # sql_text = 'SELECT * FROM public.model_test_asv'
-    # data = pd.read_sql_query(sql=text(sql_text), con=e.connect())
-    # data = data.fillna(value=-1)
-    # for column in data.columns:
-    #     data[column] = pd.to_numeric(data[column], errors='coerce')
-    # data.loc[data['col_754'] != -1, 'col_754'] = 0
-    # data = data.loc[:, (data != data.iloc[0]).any()]
-    # data.to_sql(name='model_test_asv_final', if_exists='append', con=e, index=False)
