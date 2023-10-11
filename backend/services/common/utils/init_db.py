@@ -11,14 +11,10 @@ def execute_sql(sql_file):
         with open(sql_file, "r", encoding="UTF-8") as f:
             sql = text(f.read())
         with e.connect() as con:
-            result = con.execute(sql)
-        print(result)
+            con.execute(sql)
     else:
         print("Таблица уже существуeт")
 
 
 if __name__ == "__main__":
-    print(DB_HOST)
-    print(DB_NAME)
-
     execute_sql("common/utils/init_db.sql")
