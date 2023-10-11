@@ -10,22 +10,12 @@ create table learning_model
     facts       varchar
 );
 
-/*
-alter table learning_model
-    owner to root;
-*/
-
 create table users
 (
     id      uuid not null constraint users_pkey primary key,
     username varchar,
     password varchar
 );
-
-/*
-alter table users
-    owner to root;
-*/
 
 create table roles
 (
@@ -34,13 +24,8 @@ create table roles
 );
 
 insert into roles (id, role) values
-('e5ce6ff5-82b0-4889-a947-e00d6cf914cd', 'user'),
-('f9072d74-e8d9-40b1-85b3-75a7d08124e2', 'admin');
-
-/*
-alter table roles
-    owner to root;
- */
+(gen_random_uuid(), 'user'),
+(gen_random_uuid(), 'admin');
 
 create table user_roles
 (
@@ -52,10 +37,5 @@ create table user_roles
             references roles
             on delete cascade
 );
-
-/*
-alter table user_roles
-    owner to root;
-*/
 
 commit;
