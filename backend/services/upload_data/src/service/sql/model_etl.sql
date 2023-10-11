@@ -5,19 +5,19 @@ create table incident_sum as
 select
 	unom,
 	count(1) as cnt,
-	cast(date_ext_created as date) as date_ext_created
+	date_ext_created
 from
 	incident
 group by
 	unom,
-	cast(date_ext_created as date);
+	date_ext_created;
 
 drop table if exists incident_pivot;
 
 create table incident_pivot as
 select
 	unom,
-	cast(date_ext_created as date) as date_ext_created,
+	date_ext_created,
 	sum(case when name = 'asupr' then 1 else 0 end) as asupr,
 	sum(case when name = 'gormost' then 1 else 0 end) as gormost,
 	sum(case when name = 'edc' then 1 else 0 end) as edc,
@@ -333,7 +333,7 @@ join system as s on
 	i.system_id = s.id
 group by
 	unom,
-	cast(date_ext_created as date);
+	date_ext_created;
 
 drop table if exists incident_pivot_sum;
 
