@@ -19,6 +19,5 @@ export const downloadExcel = async (link, fileName) => {
 
         saveData(response.data, blob, fileName)
     } catch (e) {
-        console.log(e)
     }
 }
