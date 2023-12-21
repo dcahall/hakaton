@@ -5,9 +5,10 @@ interface IAuthenticationHeader {
     topic: string;
     linkTopic: string;
     href: string;
+    disabled?: boolean
 }
 
-export const AuthHeader = ({topic, linkTopic, href}: IAuthenticationHeader) => {
+export const AuthHeader = ({topic, linkTopic, href, disabled = false}: IAuthenticationHeader) => {
     return (
         <Grid container justifyContent='space-between' alignItems='center' mb='30px'>
             <Grid item>
@@ -16,7 +17,7 @@ export const AuthHeader = ({topic, linkTopic, href}: IAuthenticationHeader) => {
                 </Typography>
             </Grid>
             <Grid item>
-                <LinkedTypography href={href}>
+                <LinkedTypography href={href} disabled={disabled}>
                     {linkTopic}
                 </LinkedTypography>
             </Grid>

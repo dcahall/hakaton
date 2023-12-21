@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {useEffect, useState} from "react";
 import * as yup from "yup";
 import {useTheme} from "@mui/material/styles";
@@ -70,6 +69,7 @@ export const Login = () => {
                 topic='Вход'
                 linkTopic='зарегистрироваться'
                 href='/registration'
+                disabled
             />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container direction='column' alignItems='center' rowSpacing={3}>

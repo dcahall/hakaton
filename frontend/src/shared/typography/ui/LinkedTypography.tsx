@@ -9,20 +9,22 @@ interface ILinkedTypography {
     variant?: VariantType;
     children?: React.ReactNode;
     href: string;
+    disabled?: boolean;
     sx?: {[x: string]: string};
     [x: string]: any;
 }
 
-export const LinkedTypography = ({variant, href, sx, children, ...props}: ILinkedTypography) => {
+export const LinkedTypography = ({variant, href, sx, disabled = false, children, ...props}: ILinkedTypography) => {
     const {palette} = useTheme()
 
     return (
         <Link
-            href={href}
+            href={disabled ? '#' : href}
             variant={variant}
-            underline='hover'
+            underline={disabled ? 'none' : 'hover'}
             sx={{
-                color: palette.primary.main,
+                color: disabled ? palette.grey[500] : palette.primary.main,
+                cursor: disabled ? 'default' : 'hover',
                 ...sx
             }}
             {...props}
