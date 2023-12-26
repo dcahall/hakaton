@@ -70,6 +70,7 @@ export const Login = () => {
                 linkTopic='зарегистрироваться'
                 href='/registration'
                 disabled
+                withoutHref={typeof process.env.REACT_APP_WITH_REGISTRATION === 'undefined'}
             />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container direction='column' alignItems='center' rowSpacing={3}>

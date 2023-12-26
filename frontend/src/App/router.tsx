@@ -38,12 +38,12 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path: '/registration',
-        element: <Registration/>
-    },
-    {
         path: '/login',
         element: <Login/>
+    },
+    {
+        path: typeof process.env.REACT_APP_WITH_REGISTRATION !== 'undefined' ? '/registration' : '*',
+        element: typeof process.env.REACT_APP_WITH_REGISTRATION !== 'undefined' ? <Registration/> : <OutOfRouter/>
     },
     {
         path: '*',
